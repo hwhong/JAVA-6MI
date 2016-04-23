@@ -1,0 +1,226 @@
+import java.util.*;
+import java.io.*;
+import java.util.ArrayList;
+
+public class WordCloud {
+
+   ArrayList<WordPair> list;
+
+   public WordCloud() 
+   {
+      list = new ArrayList<WordPair>();
+   }
+
+   /* Name: getWordsFromFile
+    * Purpose: The general purpose of this method is to make a dictionary of 
+    *          some sort that contains all the words in a text file. In addition
+    *          to recording the words, the method also counts the number of 
+    *          times each word exists within the textfile.
+    * Parameters: String filename 
+    * Return Type: the method does not return anything. just simply void. 
+    */
+
+   public void getWordsFromFile( String filename ) throws IOException 
+   {
+      Scanner s = new Scanner(new File(filename)); 
+
+      while (s.hasNext())
+      {
+         String word = s.next();
+         boolean hasWord = false;
+         int index = 0;
+
+         for (int i = 0; i < list.size(); i++) 
+         {
+            if (list.get(i).getWord().equalsIgnoreCase(word))
+            {
+               //evaluating whether the list contains the word or not 
+               hasWord = true;
+               index = i;
+            }
+         }
+         if (hasWord)
+         {
+            list.get(index).increment();
+         }
+         else
+         {
+            list.add(new WordPair(word));
+         }
+      } 
+   }
+
+   public ArrayList<WordPair> getList()
+   {
+      return list;
+   }
+
+   /* Name: findWordCount
+    * Purpose: The purpose of the method is to take a string as a parameter and
+    *          checks that if the textfile that calls this function has the word
+    *          included. If included, the method will return the amount of times
+    *          the word appeared in this text file.
+    * Parameters: String word 
+    * Return Type: this method will return an integer as an result. The integer
+    *              returned is the number of times the word appeared in the text
+    *              file.
+    */
+
+   public int findWordCount(String word)
+   {
+      int count = 0; 
+
+      for (int i = 0; i < list.size(); i++) 
+      {
+         if (list.get(i).getWord().equalsIgnoreCase(word))
+         {
+            //evaluating the variable "count" to the number of appearance of the
+            //word
+            count = list.get(i).getCount();
+            return count;
+         }
+      }
+      return 0;
+   }
+
+   /* Name: removeCommon
+    * Purpose: The purpose of the method is to find the word that is inputted to
+    *          the program that exist in the text file, and remove the word that
+    *          is taken in as a parameter. 
+    * Parameters: String omitFilename
+    * Return Type: This method does not return anything. The return type is 
+    *              void.
+    */
+
+   public void removeCommon( String omitFilename ) throws IOException 
+   {
+      // Scanning the file that is inputted 
+      Scanner s = new Scanner(new File(omitFilename)); 
+
+      while (s.hasNext())
+      {
+         String word = s.next();
+
+         for (int i = 0; i < list.size(); i++) 
+         {
+            if (list.get(i).getWord().equalsIgnoreCase(word))
+            {
+               list.remove(list.get(i));
+            } 
+         } 
+      }
+   }
+
+   /* Name: topNWords 
+    * Purpose: The purpose of this method is to output the N most commonly 
+    *          appeared words in the textfile. The method will output the words 
+    *          in order by the number of its appearance. 
+    * Parameters: The method takes an integer, which is the number of words that
+    *              will be outputted. 
+    * Return Type: The method will take all the words that are found and put 
+    *              them in an ArrayList. The arraylist in turn will be outputted
+    *              as a result.
+    */ 
+
+   public ArrayList<WordPair> topNWords(int n) 
+   {
+      ArrayList<WordPair> results = new ArrayList< >();
+
+      if ( n > 0 && n < list.size() )
+      {
+         for (int i = 0; i < n; i++) 
+         {
+            int max = 0;
+            int value = 0;
+            int maxIndex = 0;
+
+            int maxCount = 0;
+
+
+            for (int  j = 0; j < list.size(); j++) 
+            {
+               value = list.get(j).getCount();
+
+               if (value > max) 
+               {
+                  max = value;
+                  maxIndex = j;
+               } 
+            }
+
+            //add the word and value to new arrayList
+            results.add(list.get(maxIndex)); 
+
+            //setting the number of appearance of the word to negative so that
+            //the method won't detect it the second iteration so on
+            maxCount = 0 - list.get(maxIndex).getCount();
+            list.get(maxIndex).setCount(maxCount);
+         }
+
+         for (int i = 0; i < list.size(); i++) 
+         {
+            int reverseCount = 0;
+
+            if ( list.get(i).getCount() < 0 )
+            {
+               //Resetting the count back to positive 
+               reverseCount = list.get(i).getCount();
+               reverseCount = Math.abs(reverseCount);
+               list.get(i).setCount(reverseCount);
+            } 
+         }
+      }
+      else if (n == 0) 
+      {
+         return null;
+      }
+      else if (n < 0) 
+      {
+         System.out.println("You've entered a negative number!");
+      } 
+      else 
+      {
+         return list;
+      }   
+
+      return results;
+     
+   }
+
+/* Name: printWords
+ * Purpose: The purpose of the program is to print out a list of words and their
+ *          counts. However, depending on the boolean expression that was also
+ *          passed in, the program will express them differently.In the case
+ *          that the boolean is true, the program will output the words into a
+ *          file names myOutput.out; however,if the boolean that was passed in
+ *          is false, the program will directly print the words onto the
+ *          counsel.
+ * Parameters: The program takes an ArrayList of type wordpair, and also takes
+ *             in a boolean expression
+ * Return Types: The program does not return anything. The return type is void. 
+ */
+   public void printWords(ArrayList<WordPair>wordList,boolean printToFile) 
+      throws IOException
+      {
+         if (printToFile == false) 
+         {
+            for (int i = 0; i < wordList.size(); i++) 
+            { 
+               System.out.print(wordList.get(i).getWord()+"("+
+                     wordList.get(i).getCount()+") ");
+            }
+         }
+         else
+         {
+            File file = new File("myOutput.out");
+            PrintWriter printwriter = new PrintWriter(file);
+
+            for (int i = 0; i < wordList.size(); i++)
+            {
+               printwriter.print(wordList.get(i).getWord()+"("+
+                     wordList.get(i).getCount()+") ");
+            } 
+            printwriter.close();
+         } 
+      }
+}
