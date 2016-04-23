@@ -1,0 +1,176 @@
+import java.awt.*;
+import objectdraw.*;
+
+public class Circle extends Shape {
+   private Point center;
+   private int radius;
+
+   /*
+    * Name: Circle()
+    * Purpose: no args constructor to initialize the instance variables.
+    * Directly calls the no arg constructor from point class. and sets the
+    * radius using a setter method.
+    * Parameter: none 
+    * Return Type: None
+    */
+
+   public Circle() {
+      this.center = new Point();
+      setRadius(0);
+   }
+
+   /*
+    * Name: Circle(Point center, int radius)
+    * Purpose: constructor to initialize the instance variables, using the
+    * passed in point and the passed in radius. sets the radius using a 
+    * setter method.
+    * Parameter: Point center, int radius
+    * Return Type: None
+    */
+
+   public Circle(Point center, int radius) {
+      this.center = new Point(center); 
+      setRadius(radius);
+   }
+
+   /*
+    * Name: Circle(Circle c)
+    * Purpose: constructor to initialize the instance variables, using the
+    * passed in circle object. Uses the dot operator to access the variables
+    * Parameter: Point center, int radius
+    * Return Type: None
+    */
+
+   public Circle(Circle c) {
+      this(c.getCenter(), c.getRadius());
+   }
+
+   /*
+    * Name: move()
+    * Purpose: adds the values of delta to the points of each circle center
+    * Parameter: int xDelta, int yDelta
+    * Return Type: void
+    */
+
+   public void move(int xDelta, int yDelta) {
+      this.center.move(xDelta, yDelta);
+   }
+
+   /*
+    * Name: toString()
+    * Purpose: to return the points of each coordinate of the circle object, as
+    * well as the radius of the circle
+    * Parameter: none
+    * Return Type: String
+    */
+
+   @Override
+      public String toString() {
+         return "Circle: Center:" + this.center.toString() + ";Radius:" + 
+         this.radius;
+      }
+
+   /*
+    * Name: equals(object o)
+    * Purpose: checks whether the passed in object is equal to the calling
+    * object by comparing the instance variable of each object
+    * Parameter: Object o
+    * Return Type: boolean
+    */
+
+   @Override
+      public boolean equals(Object o) {
+         //checks if the object is null
+         if (o == null) return false;
+         if (!(o instanceof Circle)) return false;
+
+         // actually checking the instance variables
+         Circle object = (Circle)o;
+         if (! getCenter().equals(object.getCenter())) return false;
+         if (getRadius() != object.getRadius()) return false;
+
+         return true;
+      }
+
+   /*
+    * Name: hashCode()
+    * Purpose: Turns the object into an integer  
+    * Parameter: none
+    * Return Type: int
+    */
+
+   @Override
+      public int hashCode() {
+         return this.toString().hashCode();
+      }
+
+   /*
+    * Name: draw(DrawingCanvas canvas, Color c, boolean fill)
+    * Purpose: draws the circle using the oval constructors from java
+    * objectdraw.sets the color to black if the color is null. Checks whether to
+    * draw a framed oval or a filled oval based on the fill boolean.
+    * Parameter: DrawingCanvas canvas, Color c, boolean fill
+    * Return Type: void
+    */
+
+   public void draw(DrawingCanvas canvas, Color c, boolean fill) {
+      if (c == null) 
+      {
+         c = Color.BLACK;
+      }  
+
+      if (fill == true) 
+      {
+         // creates the filled oval, since fill is true
+         FilledOval circle = new FilledOval(center.getX()-getRadius()
+         ,center.getY()-getRadius(), getRadius()*2, getRadius()*2, canvas);
+
+         circle.setColor(c);
+      } 
+      else 
+      {
+         // creates the framed oval instead
+         FramedOval circle = new FramedOval(center.getX()-getRadius(), 
+         center.getY()-getRadius(), getRadius()*2, getRadius()*2, canvas);
+
+         circle.setColor(c);
+      } 
+   }
+
+   /*
+    * Name: getRadius()
+    * Purpose: returns the Radius of the calling object
+    * Parameter: none
+    * Return Type: int
+    */
+
+   public int getRadius() 
+   {
+      return this.radius;
+   } 
+
+   /*
+    * Name: getPoint()
+    * Purpose: returns the point of the calling object
+    * Parameter: none
+    * Return Type: Point
+    */
+
+   public Point getCenter()
+   {
+      return this.center;
+   }
+
+   /*
+    * Name: setRadius()
+    * Purpose: sets the radius of the calling object
+    * Parameter: int radius
+    * Return Type: void
+    */
+
+   private void setRadius(int radius) 
+   {
+      this.radius = radius;
+   } 
+   
+}
