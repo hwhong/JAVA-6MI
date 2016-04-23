@@ -1,0 +1,188 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class ReverseRecurse
+{
+ /* Name: initArray()
+  * Purpose: ask for user's input and create an array. The user has to first
+  *          specifiy the size of the array and then input the integers. The
+  *          user can enter up to the specified size or just exit half way. 
+  * Paramter: none 
+  * Return Type: integer array 
+  */
+   public int[] initArray()
+   {
+      Scanner input = new Scanner(System.in);
+      int size = 0;
+
+
+      //checks if the user inputs the correct integer, the integer has to be
+      //bigger than 0 and not equals to 0 
+      while (size <= 0)
+      {
+         //prints the instruction
+         System.out.println(PA6Strings.MAX_NUM);
+         if(input.hasNextInt())
+         {
+            size = input.nextInt(); 
+         }
+         else
+         {
+            //exits if the user inputs something that is not an int
+            System.exit(1);
+         }
+         
+         //reprompts the user message
+         if (size <= 0)
+         {
+            System.out.println(PA6Strings.TOO_SMALL);
+         } 
+      }
+
+      //creates the array of that size specified by the user
+      int[] inputArray = new int[size];
+      
+      //informs the user how many elements they can enter to 
+      System.out.printf(PA6Strings.ENTER_INTS, size);
+
+      int i = 0;
+
+      //add the input values into an array
+      while (i < size && input.hasNextInt())
+      {
+            int value = input.nextInt();
+            inputArray[i] = value;
+            i++;
+      }
+
+      if (i < size)
+      {
+         //if the user did not enter up to the "size" number of values create
+         //another array of the size of the number of values and copy the
+         //elemtns in and output that array instead
+         int[] finalArray = new int[i];
+
+         for(int x = 0; x < finalArray.length; x++)
+         {
+            finalArray[x] = inputArray[x];
+         } 
+        
+         return finalArray;
+      }
+
+      return inputArray;
+   }
+
+ /* Name: printArray()
+  * Purpose: prints the array that is inputted as the parameter 
+  * Paramter: integer array 
+  * Return Type: none void  
+  */
+
+   public void printArray(int[] array)
+   {
+      //checks if the input array is null, if it is than inform the user, else
+      //proceed to print out all the elements
+      if (array != null)
+      {
+         for (int i = 0; i < array.length; i++)
+         {
+            System.out.print(array[i] + " ");
+         }
+
+         System.out.println();
+      }
+      else
+      { 
+         System.out.println(PA6Strings.EMPTY);
+
+      } 
+   }
+
+ /* Name: reverse
+  * Purpose: reverse the inputted array. In other words, the last element
+  *          becomes the first and the first element becomes the last,and so on.
+  * Paramter: integr array, first index, last index
+  * Return Type: none void
+  */
+
+   public void reverse(int[] originalArray, int low, int high)
+   {
+      //checks of the input array is null, and establishes the bse case, which
+      //is when the indexes of both high and low are the same or the index of
+      //low has surpassed the middle point of the array. 
+      if (originalArray == null || low == high+1|| low == high )
+      {
+         return;
+      }
+      else
+      {
+         //actual swapping of element 
+         int temp = originalArray[low];
+         originalArray[low] = originalArray[high];
+         originalArray[high] = temp;
+         
+         //recursion! 
+         reverse(originalArray, low+1, high-1);
+      }
+   }
+
+ /* Name: reverse
+  * Purpose: reverse the inputted array. In other words, the last element
+  *          becomes the first and the first element becomes the last,and so
+  *          on.However, different from the last method, this method creates new
+  *          array in the method and it also only accept an integer array.
+  * Paramter: integer array
+  * Return Type: int array
+  */
+
+   public int[] reverse (int[] originalArray) 
+   {
+      //directly returns the array if null
+      if(originalArray == null)
+      {
+         return originalArray;
+      }
+
+      int[] buildArray = new int[originalArray.length];
+
+      //base case 1: returns the array if the length is 0 or 1
+      if (originalArray.length==0||originalArray.length==1)
+      {
+         return originalArray;
+      }
+      else 
+      {
+         //putting the first and last elements in the input array into the newly
+         //created array's last and first place
+         buildArray[0]=originalArray[originalArray.length-1];
+         buildArray[buildArray.length-1]=originalArray[0];
+
+         //base case 2: returns when there are only two elements left, therefore
+         //no need to reverse again
+         if(originalArray.length==2)
+         {
+            return buildArray;
+         }
+
+         int[] tempArray = new int[originalArray.length-2];
+         for(int i = 1; i < originalArray.length-1;i++)
+         {
+            tempArray[i-1]=originalArray[i];
+
+         }
+         //recursion used
+         tempArray = reverse(tempArray);
+
+         //replace the elements back into the array that is being built in the
+         //method
+         for(int i= 0; i < tempArray.length; i++) 
+         {
+            buildArray[i+1] = tempArray[i];
+         }
+
+      }
+     return buildArray;
+   } 
+
+} 
