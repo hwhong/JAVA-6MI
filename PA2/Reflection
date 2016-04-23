@@ -1,0 +1,12 @@
+What I've learned from doing the project? 
+- I learned about the idea of scanner and printwriter and how they would be used in programming. I think through by doing 
+more of these assignment, not only was I able to learn more concepts with regards to java, but also able to understand more 
+helpful functions (e.g hasNext). I also learned that to compare object, a simple "==" is incorrect, but should rather compare
+using the equals function.
+
+What were the obstacles that I've encountered while coding for this assignment? 
+- I think the most trouble I had was with the printing function. I was quite unfamiliar with the printwriter, and how it
+works. 
+
+Note to future Warren (lol)
+- you should familiarize youself with researching functions, and use the java documentation to help you program. :) 
