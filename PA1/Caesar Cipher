@@ -1,0 +1,114 @@
+import java.io.*;
+import java.util.*;
+
+public class Caesar {
+ // this program takes a string and an integer, and encryts the string by the
+ // rotational value of the int 
+ 
+ public static String encrypt(String s, int rotation) 
+ {
+  // Complete this method
+  // letters are between 65 and 90 (Upper Case) and 97 and 122 (Lower Case)
+
+   // checks if the input string is null
+   if (s != null) 
+   {   
+       // transforming string to an array of char, so that letterOperation could
+       // be used
+       //
+       char[] charArray = s.toCharArray();
+       String result;
+       
+       //looping through the individual chars, and modifying it. only if it is a
+       //character
+       
+       for (int i = 0, n = charArray.length; i < n; i++) 
+       {
+          charArray[i] = Caesar.letterOperation(charArray[i], -rotation);
+       }
+       result = new String(charArray);
+       return result;
+   } 
+   else 
+   {
+      return null;
+   }
+
+ }
+ 
+
+ public static String decrypt(String s, int rotation)
+ {
+    if (s != null) 
+    { 
+      char[] charArray = s.toCharArray();
+      String result;
+
+      for (int i = 0, n = charArray.length; i < n; i++) 
+      {
+         charArray[i] = Caesar.letterOperation(charArray[i], rotation);
+      }
+      result = new String(charArray);
+      return result;
+    }
+    else 
+    {
+      return null;
+    }     
+ }
+
+ private static char letterOperation(char a, int rotation) 
+ {
+    //declared variables to keep track of the integer values of the chars
+    int bigX;
+    int littleX;
+    String result; 
+
+    // making sure that the char ASCII value stays in the range of characters
+    //
+    if ((int)a >= 97 && (int)a <= 122 || (int)a >= 65 && (int)a <= 90)
+    {
+       // operation on lowercase letter
+       if ((int)a >= 97 && (int)a <= 122) 
+       {
+          littleX = (int)a + (-rotation);
+
+          while (littleX < 97) 
+          {
+             littleX = littleX + 26;
+          }
+          while (littleX > 122) 
+          {
+             littleX = littleX - 26;
+          }
+
+          a = (char)littleX;
+       }
+       
+       //operation on uppercase letters 
+       if ((int)a >= 65 && (int)a <= 90)
+       {
+          bigX = (int)a + (-rotation);
+
+          while (bigX  > 90)
+          {
+             bigX = bigX - 26;
+          }
+          while (bigX < 65) 
+          {
+             bigX = bigX + 26;
+          }
+
+          a = (char)bigX;
+
+       } 
+    }
+    else 
+    {
+       return a;
+    } 
+ return a;
+ }
+
+//this bracket is to close the file
+}
