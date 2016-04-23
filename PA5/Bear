@@ -1,0 +1,109 @@
+import java.awt.*;
+
+public class Bear extends Critter
+{
+   //initializing the default color as brown
+   private Color color = new Color(190, 110, 50);
+   private int turn = 0;
+
+   public Bear (boolean grizzly) 
+   { 
+      if (grizzly != true)
+      {
+         this.color = Color.WHITE;
+      }
+      else 
+      {
+         this.getColor();
+      } 
+   } 
+/* Name: eat()
+ * Purpose: always return true, meaning that the bear is constantly hungry
+ * Parameter: None
+ * Return Type: boolean (always true)
+ */
+   public boolean eat() 
+   {
+      return true;
+   } 
+
+/* Name: fight()
+ * Purpose: always return scratch, meaning that the bear will only scratch the
+ *          opponent.
+ * Parameter: String opponent
+ * Return Type: Attack (always scratch)
+ */
+
+   public Attack fight(String opponent) 
+   {
+      return Attack.SCRATCH;
+   } 
+
+/* Name: getColor()
+ * Purpose: returns the color
+ * Parameter: None
+ * Return Type: color
+ */
+
+   public Color getColor()
+   {
+      return color;
+   }
+
+/* Name: getMove()
+ * Purpose: moves the bear object
+ * Parameter: None
+ * Return Type: Direction of either south or east
+ */
+
+   public Direction getMove()
+   {
+      //capturing the integer that is returned from whichMove(), which helps to
+      //keep record of what direction is it still moving
+
+      int move = whichMove();
+
+      if (move == 1) 
+      { 
+         return Direction.SOUTH;
+      } 
+      else 
+      { 
+         return Direction.EAST;
+      } 
+   } 
+
+/* Name: toString()
+ * Purpose: returns the string 'B'
+ * Parameter: None
+ * Return Type: String
+ */
+
+   public String toString() 
+   { 
+      return "B";
+   } 
+
+/* Name: whichMove()
+ * Purpose: This helper method helps the bear to alternate between the move of
+ *          either south or east.
+ * Parameter: None
+ * Return Type: integer
+ */
+   private int whichMove() 
+   {
+      //always alternating between 1 and 0, helps to determind between the
+      //directions
+
+      this.turn = turn % 2 + 1;
+
+      if (turn == 1) 
+      {
+         return 1;
+      }
+      else
+      {
+         return 0;
+      } 
+   } 
+} 
