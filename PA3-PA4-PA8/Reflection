@@ -1,0 +1,21 @@
+What I've learned from doing the project? 
+- This project was probably the hardest out of all the assignments I've done in the span of 6 months. In this project, I had 
+to implement the game 2048 along with its front-end. The implementation of the back-end took 2 weeks, while the implementation
+of the frontend took 1 week to complete. In the duration of this project, I've learned SO MUCH! 
+
+1. How some web applications started by creating the concept, then uses Gui to make it look more user friendly, while under
+the hood, everything is just code. (before programming this assignment I had trouble understanding the link from codes to 
+actually making a product that we uses on a daily basis)
+2. I learned more about user inputs and his/her interaction with the program.
+3. the many operations that goes in creating a web application.
+4. How to mimic what you are trying to create by first printing it onto the concole
+5. The power of Gui and how it makes every looks so much prettier. 
+
+What were the obstacles that I've encountered while coding for this assignment? 
+- I think the most trouble I had was with updating the grid and how one key operation (up, down, left, right) would change the
+whole scheme of the grid. I also a little bug with moving the grid in the right direction after implementing the Gui, turns 
+out I've implemented up for left, and down for right, and vice versa. Also had some trouble with updating the score after one
+iteration of play. 
+
+Note to future Warren (lol)
+- CS IS SO MUCH FUN!
