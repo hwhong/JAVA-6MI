@@ -1,0 +1,10 @@
+What I've learned from doing the project? 
+- This project was focused on the idea of recursion. I learned that by calling a recursive function, pictorolly , there are 
+breanches that follow each function call, and each function call leads to additional branches in the graph. 
+
+What were the obstacles that I've encountered while coding for this assignment? 
+- Recursion can be a really beautiful way of solving a problem, but it was quite hard to implement, understanding when to call
+the recursing function, and what happens when the function is called. 
+
+Note to future Warren (lol)
+- try and do more projects with implementing recursion. I think recursion helps with drawing memory diagram. (y)
