@@ -1,0 +1,11 @@
+What I've learned from doing the project? 
+- This project was really cool. The idea of encrypting and decrypting has always intrigued me. In this assignment, I learned
+how the operation of encrypting and decrypting works. There is a certain "key(number of steps)" which the letter would be 
+moving, and according to the user inputs, the letters will move forward or backward accordingly. 
+
+What were the obstacles that I've encountered while coding for this assignment? 
+- Though the actual programming wasn't hard, it was the idea of counting how much the letters should be moved and also the 
+letters would wrap around if the key exceeds a certain value. 
+
+Note to future Warren (lol)
+- pretty cool assignment! 
